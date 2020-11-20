@@ -1,58 +1,81 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="pageContainer">
+    <div class="tile"><h1>Hello {{name}}</h1></div>
+    <div class="tile"><h2>Today is {{ today() }}</h2></div>
+    <div class="tile"><h2>{{ daysTillMonthEnd() }} days till the end of the month. </h2></div>
+    <div class="tile"><h2>{{ daysTillYearEnd() }} days till the end of the year. </h2></div>
+    <Tile 
+      msg1="The world is awesome"
+      msg2="43 days till"
+      msg3="thrid data rules"
+    />
+    <img class="smallicon" src="https://source.unsplash.com/200x200/?happy" />
+    <img class="smallicon" src="https://source.unsplash.com/200x200/?tree" />
   </div>
 </template>
 
 <script>
+import Tile from './Tile.vue'
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+  components: {
+    Tile
+  },
+  data: () => {
+    return {
+      name: 'Cesar'
+    }
+  },
+  methods: {
+    today: function () {
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+      const date = new Date().getDate();
+      const month = new Date().getMonth();
+      const year = new Date().getFullYear();
+      return `${monthNames[month]} ${date} ${year}`;
+    },
+    daysTillMonthEnd: function() {
+      const date = new Date();
+      const month = date.getMonth();
+      const endMonth = new Date().getMonth() == 11 ? 1 : new Date().getMonth() + 2;
+      const endYear = month == 11 ? date.getFullYear() + 1 : date.getFullYear();
+      const endDate = new Date(`${endMonth}/1/${endYear}`);
+      const diff = Math.abs(endDate - date);
+      const days = Math.floor((diff / (60*60*24*1000)) % 365);
+      return days;
+    },
+    daysTillYearEnd: function() {
+      const date = new Date();
+      const year = date.getFullYear();
+      const endDate = new Date(`1/1/${year + 1}`);
+      const diff = Math.abs(endDate - date);
+      const days = Math.floor((diff / (60*60*24*1000)) % 365);
+      return days;
+    }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+  .pageContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(12, 1fr);
+    grid-column: 3 / span 8;
+    gap: .5em;
+    padding: 10px;
+  }
+  h1 {
+    font-size: 60px;
+  }
+  .smallicon {
+    box-shadow: 0 0 5px #333;
+  }
+
+  .tile {
+    background-color: dodgerblue;
+    width: 100%;
+    height: 100%;
+  }
 </style>
