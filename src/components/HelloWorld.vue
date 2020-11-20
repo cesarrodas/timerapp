@@ -1,4 +1,5 @@
 <template>
+  <Menu />
   <div class="pageContainer">
     <div class="tile"><h1>Hello {{name}}</h1></div>
     <div class="tile"><h2>Today is {{ today() }}</h2></div>
@@ -16,10 +17,13 @@
 
 <script>
 import Tile from './Tile.vue'
+import Menu from './Menu.vue'
+
 export default {
   name: 'HelloWorld',
   components: {
-    Tile
+    Tile,
+    Menu
   },
   data: () => {
     return {
