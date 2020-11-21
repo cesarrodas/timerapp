@@ -1,7 +1,12 @@
 <template>
-  <Menu />
+  <Menu 
+    @changeusername="changeUsername" 
+    @changebedtime="changeBedtime"
+    :username="username" 
+    :bedtime="bedtime" 
+  />
   <div class="pageContainer">
-    <div class="tile"><h1>Hello {{name}}</h1></div>
+    <div class="tile"><h1>Hello {{username}}</h1></div>
     <div class="tile"><h2>Today is {{ today() }}</h2></div>
     <div class="tile"><h2>{{ daysTillMonthEnd() }} days till the end of the month. </h2></div>
     <div class="tile"><h2>{{ daysTillYearEnd() }} days till the end of the year. </h2></div>
@@ -27,10 +32,18 @@ export default {
   },
   data: () => {
     return {
-      name: 'Cesar'
+      username: 'Cesar',
+      bedtime: '22:00'
     }
   },
   methods: {
+    changeUsername: function(user){
+      console.log("CHANGE USER PARAM: ", user);
+      this.username = user;
+    },
+    changeBedtime: function(time){
+      this.bedtime = time;
+    },
     today: function () {
       const monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
