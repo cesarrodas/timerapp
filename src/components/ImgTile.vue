@@ -15,7 +15,7 @@ export default {
 
 <style scoped>
   .imgTile {
-    background: white;
+    background: dodgerblue;
     width: 100%;
     height: 100%;
   }

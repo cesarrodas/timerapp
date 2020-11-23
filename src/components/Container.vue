@@ -21,6 +21,8 @@ import Month from './Month.vue'
 import Year from './Year.vue'
 import Bedtime from './Bedtime.vue'
 
+import { dbSave, dbLoad } from '../db.js';
+
 export default {
   name: 'Container',
   components: {
@@ -38,6 +40,9 @@ export default {
     }
   },
   mounted() {
+    console.log("LOADED VAL: ", this.dbLoad("username"));
+    this.username = this.dbLoad("username");
+    this.bedtime = this.dbLoad("bedtime");
     setInterval(() => {
       this.time = new Date();
     }, 1000)
@@ -47,9 +52,10 @@ export default {
       this.username = user;
     },
     changeBedtime: function(time){
-      console.log("CHANGE THE TIME", time);
       this.bedtime = time;
-    }
+    },
+    dbSave,
+    dbLoad
   }
 }
 </script>

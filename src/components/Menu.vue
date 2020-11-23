@@ -9,11 +9,11 @@
   <div id="menu">
     <form>
       <label for="fname">First name:</label>
-      <input type="text" id="fname" v-bind:value="username" @change="changeUsername" maxlength="10" name="fname">
+      <input type="text" id="name" v-bind:value="username" @change="changeUsername" maxlength="10" name="fname">
       <label for="bedtime">What time do you go to bed? </label>
-      <input type="time" id="appt" v-bind:value="bedtime" @change="changeBedtime" name="bedtime"
+      <input type="time" id="bedtime" v-bind:value="bedtime" @change="changeBedtime" name="bedtime"
        min="00:00" max="24:00" required><br/>
-
+       <button id="saveButton" class="save" @click="saveInfo">Save</button>
     </form>
   </div>
 </template>
@@ -32,6 +32,12 @@ export default {
     username: String,
     bedtime: String
   },
+  mounted() {
+    let user = this.loadData("username");
+    this.$emit('changeusername', user);
+    let bedtime = this.loadData("bedtime");
+    this.$emit('changebedtime', bedtime);
+  },
   emits: ['changeusername', 'changebedtime'],
   methods: {
     click: function (){
@@ -46,16 +52,29 @@ export default {
         menu.classList = "";
       }
     },
+    saveInfo: function(e){
+      e.preventDefault();
+      let name = document.getElementById("name").value;
+      let bedtime = document.getElementById("bedtime").value;
+      this.saveData("username", name);
+      this.saveData("bedtime", bedtime);
+      let saveButton = document.getElementById("saveButton");
+      saveButton.innerText = "Saved!";
+    },
     loadData: function(name){
-      this[name] = dbLoad(name);
+      return dbLoad(name);
     },
     saveData: function(name, value){
       dbSave(name, value);
     },
     changeUsername: function (e) {
+      let saveButton = document.getElementById("saveButton");
+      saveButton.innerText = "Save";
       this.$emit('changeusername', e.target.value)
     },
     changeBedtime: function(e){
+      let saveButton = document.getElementById("saveButton");
+      saveButton.innerText = "Save";
       this.$emit('changebedtime', e.target.value)
     }
   }
@@ -69,6 +88,29 @@ export default {
     top: 14px;
     width: 40px;
     z-index: 10;
+  }
+
+  #saveButton {
+    background: hsl(209.46,	99.12%, 55.69%);
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    float: right;
+    cursor: pointer;
+    border: none;
+  }
+
+  #saveButton:hover {
+    background: hsl(209.46,	99.12%, 45.69%);
+  }
+
+  #saveButton:focus {
+    outline: none;
+  }
+
+  #saveButton:after {
+    content: "";
+    clear: both;
   }
 
   #menuIcon {

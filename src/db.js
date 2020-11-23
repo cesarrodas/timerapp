@@ -1,5 +1,6 @@
 export const dbSave = (name, value) => {
   console.log("saving");
+  console.log("is it saving? ");
   localStorage.setItem(name, value);
 }
 
