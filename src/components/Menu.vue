@@ -9,11 +9,10 @@
   <div id="menu">
     <form>
       <label for="fname">First name:</label>
-      <input type="text" id="fname" v-bind:value="username" @change="changeUsername" name="fname">
+      <input type="text" id="fname" v-bind:value="username" @change="changeUsername" maxlength="10" name="fname">
       <label for="bedtime">What time do you go to bed? </label>
       <input type="time" id="appt" v-bind:value="bedtime" @change="changeBedtime" name="bedtime"
        min="00:00" max="24:00" required><br/>
-      <input type="submit" value="Submit">
 
     </form>
   </div>
@@ -21,8 +20,6 @@
 
 <script>
 import { dbSave, dbLoad } from '../db';
-
-// save();
 
 export default {
   name: 'Menu',
@@ -35,10 +32,6 @@ export default {
     username: String,
     bedtime: String
   },
-  //created() {
-    // this.username = this.loadData("username");
-    // this.bedtime = this.loadData("bedtime");
-  //},
   emits: ['changeusername', 'changebedtime'],
   methods: {
     click: function (){
@@ -60,7 +53,6 @@ export default {
       dbSave(name, value);
     },
     changeUsername: function (e) {
-      // console.log("USA NAME: ", );
       this.$emit('changeusername', e.target.value)
     },
     changeBedtime: function(e){
@@ -72,9 +64,9 @@ export default {
 
 <style scoped>
   #iconContainer {
-    position: absolute;
-    left: 10px;
-    top: 10px;
+    position: fixed;
+    left: 14px;
+    top: 14px;
     width: 40px;
     z-index: 10;
   }
@@ -122,6 +114,7 @@ export default {
   /* Menu Styles */
   #menu {
     background-color: rgb(36, 33, 224);
+    background-color: hsl(0, 0%, 82%);
     position: fixed;
     width: 100%;
     height: 100%;
@@ -146,10 +139,22 @@ export default {
   label {
     display: block;
     margin: 0;
+    color: #2c3e50;
   }
 
   input {
+    font-size: 18px;
     margin-bottom: 10px;
     margin-top: 6px;
+    border: none;
+    border-bottom: black solid 2px;
+    width: 120px;
+    background-color: hsl(0, 0%, 82%);
+  }
+
+  input:focus {
+    border: none;
+    border-bottom: dodgerblue solid 2px;
+    outline: none;
   }
 </style>

@@ -7,7 +7,7 @@
       <div @click="flip" class="flip-box-back">
         <h2>{{msg2}}</h2>
       </div>
-      <div v-if="msg3" @click="flip" id="third" class="flip-box-back">
+      <div v-if="msg3" @click="flip" class="flip-box-back third">
         <h2>{{msg3}}</h2>
       </div>
     </div>
@@ -30,15 +30,13 @@
     },
     methods: {
       flip: function () {
-        // console.log("flipedd");
-        let inner = document.getElementsByClassName("flip-box-inner")[0];
-        // inner.classList = "flip-box-inner flipping"
+        let inner = this.$el.children[0];
         if(this.flipped){
           inner.classList = "flip-box-inner";
           this.flipped = false; 
         } else {
           if(this.$props.msg3){
-            let thirdTile = document.getElementById("third");
+            let thirdTile = this.$el.children[0].children[2];
             if(this.third){
               thirdTile.style.display = "flex";
               this.third = false;
@@ -62,8 +60,7 @@
     width: 100%;
     height: 100%;
     border: 1px solid #f1f1f1;
-    perspective: 1000px; 
-    /* Remove this if you don't want the 3D effect */
+    perspective: 1000px;
   }
 
   /* This container is needed to position the front and back side */
@@ -77,9 +74,6 @@
   }
 
   /* Do an horizontal flip when you move the mouse over the flip box container */
-  /* .flip-box:hover .flip-box-inner {
-    transform: rotateY(180deg);
-  } */
   .flipping {
     transform: rotateX(180deg);
   }
