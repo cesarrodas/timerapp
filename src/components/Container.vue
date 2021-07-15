@@ -35,14 +35,13 @@ export default {
   data: () => {
     return {
       username: 'Cesar',
-      bedtime: '22:00',
+      bedtime: '22:00:00',
       time: new Date()
     }
   },
   mounted() {
-    console.log("LOADED VAL: ", this.dbLoad("username"));
-    this.username = this.dbLoad("username");
-    this.bedtime = this.dbLoad("bedtime");
+    this.username = this.dbLoad("username") ? this.dbLoad("username") : "User";
+    this.bedtime = this.dbLoad("bedtime") ? this.dbLoad("bedtime") : "22:00:00";
     setInterval(() => {
       this.time = new Date();
     }, 1000)

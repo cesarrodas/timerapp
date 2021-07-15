@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     endOfDay: function() {
-      const bedtime = new Date(this.time.toDateString() + ' ' + this.bedtime );
+      let bedtime = new Date(this.time.toDateString() + ' ' + this.bedtime );
       const timeTill = bedtime - this.time;
 
       let seconds = Math.floor((timeTill / 1000) % 60);
