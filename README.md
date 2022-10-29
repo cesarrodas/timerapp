@@ -1,24 +1,4 @@
 # timerapp
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Timer App is an app created in Vue.js! It helps you keep track of time with windows' like tiles.
+The components are composed with the time state flowing down to all tile components. 
